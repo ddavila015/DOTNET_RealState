@@ -8,10 +8,14 @@
 
   <ItemGroup>
     <Folder Include="Configuraciones\" />
+    <Folder Include="Dtos\" />
     <Folder Include="Excepciones\" />
-    <Folder Include="InyeccionDependencias\" />
     <Folder Include="Mapeadores\" />
     <Folder Include="Puertos\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="13.0.0" />
   </ItemGroup>
 
   <ItemGroup>

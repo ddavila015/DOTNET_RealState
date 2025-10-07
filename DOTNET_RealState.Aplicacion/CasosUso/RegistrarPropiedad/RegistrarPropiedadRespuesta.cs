@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DOTNET_RealState.Aplicacion.CasosUso.Propiedades
+namespace DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropiedad
 {
-    public class CambiarPrecioPropiedad
+    public class RegistrarPropiedadRespuesta
     {
-
     }
 }

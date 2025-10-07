@@ -1,9 +1,12 @@
-﻿using DOTNET_RealState.Aplicacion.Dtos;
+﻿using DOTNET_RealState.Aplicacion.CasosUso.Propiedades;
+using DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropiedad;
+using DOTNET_RealState.Aplicacion.Envoltorios;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DOTNET_RealState.API.Controllers
+namespace DOTNET_RealState.API.Controllers.Propiedad
 {
-    public class PropiedadesController : Controller
+    public class PropiedadesController : BaseApiController
     {
         /// <summary>
         /// Realiza el envío de una notificación
@@ -20,10 +23,11 @@ namespace DOTNET_RealState.API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> RegistrarPropiedad([FromBody] SolicitudRegistroPropiedadDto solicitud)
+        public async Task<IActionResult> RegistrarPropiedad([FromBody] RegistrarPropiedadSolicitud solicitud)
         {
+
+            return Ok(await Mediador.Send(new RegistrarPropiedadSolicitud()));
             
-            return Ok();
         }
     }
 }

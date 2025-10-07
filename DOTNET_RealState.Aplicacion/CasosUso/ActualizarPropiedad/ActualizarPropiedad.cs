@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DOTNET_RealState.Aplicacion.CasosUso.Propiedades
+namespace DOTNET_RealState.Aplicacion.CasosUso.ActualizarPropiedad
 {
     public class ActualizarPropiedad
     {

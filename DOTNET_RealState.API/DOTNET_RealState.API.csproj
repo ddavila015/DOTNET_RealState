@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Extenciones\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\DOTNET_RealState.Aplicacion\DOTNET_RealState.Aplicacion.csproj" />
     <ProjectReference Include="..\DOTNET_RealState.Infraestructura\DOTNET_RealState.Infraestructura.csproj" />
   </ItemGroup>

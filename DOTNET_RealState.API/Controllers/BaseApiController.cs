@@ -9,7 +9,7 @@ namespace DOTNET_RealState.API.Controllers
     /// Proporciona configuración común y acceso al patrón Mediator mediante <see cref="IMediator"/>.
     /// </summary>
     //[Authorize(Policy = "TokenOrInternal")]
-    [Route("api/v{version:apiVersion}/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class BaseApiController : ControllerBase
     {
