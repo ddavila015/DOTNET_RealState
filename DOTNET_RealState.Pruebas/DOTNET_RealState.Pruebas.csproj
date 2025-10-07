@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DOTNET_RealState.API\DOTNET_RealState.API.csproj" />
+    <ProjectReference Include="..\DOTNET_RealState.Aplicacion\DOTNET_RealState.Aplicacion.csproj" />
+    <ProjectReference Include="..\DOTNET_RealState.Dominio\DOTNET_RealState.Dominio.csproj" />
+    <ProjectReference Include="..\DOTNET_RealState.Infraestructura\DOTNET_RealState.Infraestructura.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DOTNET_RealState.API_Pruebas\" />
+    <Folder Include="DOTNET_RealState.Aplicacion_Pruebas\" />
+    <Folder Include="DOTNET_RealState.Dominio_Pruebas\" />
+    <Folder Include="DOTNET_RealState.Infraestructura_Pruebas\" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extenciones\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DOTNET_RealState.Aplicacion\DOTNET_RealState.Aplicacion.csproj" />
+    <ProjectReference Include="..\DOTNET_RealState.Infraestructura\DOTNET_RealState.Infraestructura.csproj" />
+  </ItemGroup>
+
+</Project>
