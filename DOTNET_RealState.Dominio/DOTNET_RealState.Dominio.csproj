@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Agregados\" />
-    <Folder Include="Entidades\" />
     <Folder Include="Servicios\" />
     <Folder Include="Repositorios\" />
   </ItemGroup>

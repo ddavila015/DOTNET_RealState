@@ -7,10 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="CasosUso\" />
     <Folder Include="Configuraciones\" />
-    <Folder Include="Constantes\" />
-    <Folder Include="Dtos\" />
     <Folder Include="Excepciones\" />
     <Folder Include="InyeccionDependencias\" />
     <Folder Include="Mapeadores\" />

@@ -1,4 +1,9 @@
+
+using DotNetEnv;
+
 var builder = WebApplication.CreateBuilder(args);
+
+Env.Load();
 
 // Add services to the container.
 
@@ -17,7 +22,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors("AllowSwagger");
 app.UseAuthorization();
 
 app.MapControllers();
