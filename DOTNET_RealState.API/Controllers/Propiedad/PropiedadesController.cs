@@ -1,4 +1,5 @@
-﻿using DOTNET_RealState.Aplicacion.CasosUso.Propiedades;
+﻿using DOTNET_RealState.API.Extenciones;
+using DOTNET_RealState.Aplicacion.CasosUso.Propiedades;
 using DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropiedad;
 using DOTNET_RealState.Aplicacion.Envoltorios;
 using MediatR;
@@ -24,10 +25,8 @@ namespace DOTNET_RealState.API.Controllers.Propiedad
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> RegistrarPropiedad([FromBody] RegistrarPropiedadSolicitud solicitud)
-        {
-
-            return Ok(await Mediador.Send(new RegistrarPropiedadSolicitud()));
-            
+        {            
+            return RespuestaMsExtension.ConvertirRespuestaActionResult(await Mediador.Send(solicitud));
         }
     }
 }

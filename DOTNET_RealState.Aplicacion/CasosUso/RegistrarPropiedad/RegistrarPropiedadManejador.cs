@@ -1,5 +1,6 @@
 ﻿using DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropiedad;
 using DOTNET_RealState.Aplicacion.Envoltorios;
+using DOTNET_RealState.Aplicacion.Puertos;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -9,11 +10,23 @@ using System.Threading.Tasks;
 
 namespace DOTNET_RealState.Aplicacion.CasosUso.Propiedades
 {
-    public class RegistrarPropiedadManejador : IRequestHandler<RegistrarPropiedadSolicitud, Respuesta<RegistrarPropiedadRespuesta>>
-    {     
-        public Task<Respuesta<RegistrarPropiedadRespuesta>> Handle(RegistrarPropiedadSolicitud request, CancellationToken cancellationToken)
+    public class RegistrarPropiedadManejador(IPropiedades propiedades) : IRequestHandler<RegistrarPropiedadSolicitud, RespuestaMs<RegistrarPropiedadRespuesta>>
+    {
+        private readonly IPropiedades _propiedades = propiedades;
+
+        public async Task<RespuestaMs<RegistrarPropiedadRespuesta>> Handle(RegistrarPropiedadSolicitud solicitud, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            try
+            {
+               _propiedades.RegistrarPropiedad(solicitud);
+                 
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            return RespuestaMs<RegistrarPropiedadRespuesta>.CrearRespuestaExitosa(new RegistrarPropiedadRespuesta(), string.Empty);                
         }
     }
 }

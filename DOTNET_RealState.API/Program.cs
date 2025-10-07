@@ -1,4 +1,6 @@
 using DOTNET_RealState.Aplicacion.InyeccionDependencias;
+using DOTNET_RealState.Aplicacion.Puertos;
+using DOTNET_RealState.Infraestructura.Repositorios;
 using DotNetEnv;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +15,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AgregarCapaAplicacion();
+builder.Services.AddScoped<IPropiedades, Propiedades>();
 
 var app = builder.Build();
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropiedad
 {
-    public class RegistrarPropiedadSolicitud : IRequest<Respuesta<RegistrarPropiedadRespuesta>>
+    public class RegistrarPropiedadSolicitud : IRequest<RespuestaMs<RegistrarPropiedadRespuesta>>
     {
         public string Nombre { get; set; }
         public string Direccion { get; set; }
