@@ -49,12 +49,12 @@ namespace DOTNET_RealState.Infraestructura.Repositorios
 
 
             /// <summary>
-            /// obtenermos la collection de la entidad Propiedades
+            /// obtenermos la collection de la entidad Propietario
             /// </summary>
             var coleccionPropietario = mongoDBContext.GetCollection<Propietario>("Propietario");
- 
+
             /// <summary>
-            /// Filtramos por el Id de la propiedad
+            /// Filtramos por el Id de la Propietario
             /// </summary>
             var filtroPropietario = Builders<Propietario>.Filter.Eq(x => x.Id, solicitud.IdPropietario);
              
@@ -62,7 +62,7 @@ namespace DOTNET_RealState.Infraestructura.Repositorios
             /// Validar si encuentra el propietario
             /// </summary>
             var propietarioExistente = await coleccionPropietario.Find(filtroPropietario).FirstOrDefaultAsync();
-            if (propiedadExistente == null)
+            if (propietarioExistente == null)
             {
                 throw new Exception("El propietario no se encuentra registrado.");
             }
@@ -196,12 +196,31 @@ namespace DOTNET_RealState.Infraestructura.Repositorios
         public async Task<Propiedad> RegistrarPropiedad(RegistrarPropiedadSolicitud solicitud)
         {
             try
-            {        
+            {                       
+                /// <summary>
+                /// obtenermos la collection de la entidad Propietario
+                /// </summary>
+                var coleccionPropietario = mongoDBContext.GetCollection<Propietario>("Propietario");
+
+                /// <summary>
+                /// Filtramos por el Id de la Propietario
+                /// </summary>
+                var filtroPropietario = Builders<Propietario>.Filter.Eq(x => x.Id, solicitud.IdPropietario);
+
+                /// <summary>
+                /// Validar si encuentra el propietario
+                /// </summary>
+                var propietarioExistente = await coleccionPropietario.Find(filtroPropietario).FirstOrDefaultAsync();
+                if (propietarioExistente == null)
+                {
+                    throw new Exception("El Propietario no se encuentra registrado.");
+                }
+
+
                 /// <summary>
                 /// obtenermos la collection de la entidad Propiedades
                 /// </summary>
                 var coleccion = mongoDBContext.GetCollection<Propiedad>("Propiedades");
-
 
                 /// <summary>
                 /// Mapeamos la entidad 
