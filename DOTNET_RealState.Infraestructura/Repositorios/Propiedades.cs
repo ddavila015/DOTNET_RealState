@@ -1,4 +1,5 @@
-﻿using DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropiedad;
+﻿using DOTNET_RealState.Aplicacion.CasosUso.ConsultarPropiedad;
+using DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropiedad;
 using DOTNET_RealState.Aplicacion.Puertos;
 using DOTNET_RealState.Dominio.Entidades;
 using DOTNET_RealState.Infraestructura.Persistencia;
@@ -36,8 +37,40 @@ namespace DOTNET_RealState.Infraestructura.Repositorios
             throw new NotImplementedException();
         }
 
-        public void ConsultartPropiedades()
+        public void ConsultartPropiedades(ConsultarPropiedadSolicitud solicitud)
         {
+            /// <summary>
+            /// obtenermos la collection de la entidad Propiedades
+            /// </summary>
+            var coleccion = mongoDBContext.GetCollection<Propiedad>("Propiedades");
+
+            var pipeline = coleccion.Aggregate()
+                            .Lookup(
+                                foreignCollectionName: "Propietario",
+                                localField: "IdPropietario",
+                                foreignField: "_id",
+                                @as: "Propietario"
+                            )
+                            .Unwind("Propietario", new AggregateUnwindOptions<Propietario>
+                            {
+                                PreserveNullAndEmptyArrays = true
+                            })
+                            .Lookup(
+                                foreignCollectionName: "ImagenPropiedad",
+                                localField: "_id",
+                                foreignField: "IdPropiedad",
+                                @as: "Archivo"
+                            )
+                            .Lookup(
+                                foreignCollectionName: "DetallePropiedad",
+                                localField: "_id",
+                                foreignField: "FechaVenta",
+                                @as: "Nombre"
+                            );
+
+            
+            var resultBson = pipeline.ToList();
+
             throw new NotImplementedException();
         }
 

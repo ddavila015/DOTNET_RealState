@@ -1,4 +1,5 @@
-﻿using DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropiedad;
+﻿using DOTNET_RealState.Aplicacion.CasosUso.ConsultarPropiedad;
+using DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropiedad;
 using DOTNET_RealState.Dominio.Entidades;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace DOTNET_RealState.Aplicacion.Puertos
 
         Task<Propiedad> RegistrarPropiedad(RegistrarPropiedadSolicitud solicitud);
 
-        void ConsultartPropiedades();
+        void ConsultartPropiedades(ConsultarPropiedadSolicitud solicitud);
 
         void ActualizarPropiedad();
 

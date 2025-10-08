@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DOTNET_RealState.Aplicacion.CasosUso.ConsultarPropiedad
 {
-    public class ConsultarPropiedades
+    public class ConsultarPropiedadRespuesta
     {
     }
 }
