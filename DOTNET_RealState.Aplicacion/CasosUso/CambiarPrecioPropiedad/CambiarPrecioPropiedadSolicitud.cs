@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace DOTNET_RealState.Aplicacion.CasosUso.CambiarPrecioPropiedad
 {
-    public class CambiarPrecioPropiedad
+    public class CambiarPrecioPropiedadSolicitud
     {
+        public string IdPropiedad { get; set; }
+        public decimal Precio { get; set; }
 
     }
 }

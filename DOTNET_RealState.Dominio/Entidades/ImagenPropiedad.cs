@@ -14,7 +14,8 @@ namespace DOTNET_RealState.Dominio.Entidades
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
         public string IdPropiedad { get; set; }
-        public string Archivo { get; set; }
-        public string Activo { get; set; }
+        public string ArchivoNombre { get; set; }
+        public string ImgBase64 { get; set; }
+        public bool Activo { get; set; }
     }
 }
