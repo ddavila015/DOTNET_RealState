@@ -1,15 +1,14 @@
-﻿using DOTNET_RealState.Aplicacion.Envoltorios;
-using MediatR;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropiedad
+namespace DOTNET_RealState.Aplicacion.CasosUso.ActualizarPropiedad
 {
-    public class RegistrarPropiedadSolicitud : IRequest<RespuestaMs<RegistrarPropiedadRespuesta>>
+    public class ActualizarPropiedadSolicitud
     {
+        public string IdPropiedad { get; set; }
         public string Nombre { get; set; }
         public string Direccion { get; set; }
         public decimal Precio { get; set; }

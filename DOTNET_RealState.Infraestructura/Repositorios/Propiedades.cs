@@ -1,4 +1,5 @@
-﻿using DOTNET_RealState.Aplicacion.CasosUso.CambiarPrecioPropiedad;
+﻿using DOTNET_RealState.Aplicacion.CasosUso.ActualizarPropiedad;
+using DOTNET_RealState.Aplicacion.CasosUso.CambiarPrecioPropiedad;
 using DOTNET_RealState.Aplicacion.CasosUso.CargarImagenPropiedad;
 using DOTNET_RealState.Aplicacion.CasosUso.ConsultarPropiedad;
 using DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropiedad;
@@ -24,9 +25,65 @@ namespace DOTNET_RealState.Infraestructura.Repositorios
         /// </summary>
         private readonly IMongoDBContext _mongoDBContext = mongoDBContext;
 
-        public void ActualizarPropiedad()
+        public async Task<Propiedad> ActualizarPropiedad(ActualizarPropiedadSolicitud solicitud)
         {
-            throw new NotImplementedException();
+            /// <summary>
+            /// obtenermos la collection de la entidad Propiedades
+            /// </summary>
+            var coleccion = mongoDBContext.GetCollection<Propiedad>("Propiedades");
+
+            /// <summary>
+            /// Filtramos por el Id de la propiedad
+            /// </summary>
+            var filtro = Builders<Propiedad>.Filter.Eq(x => x.Id, solicitud.IdPropiedad);
+
+            /// <summary>
+            /// Validar si la Propiedad existe
+            /// </summary>
+             var propiedadExistente = await coleccion.Find(filtro).FirstOrDefaultAsync();
+            if (propiedadExistente == null)
+            {
+                throw new Exception("La Propiedad no se encuentra registrada.");
+            }
+
+
+
+            /// <summary>
+            /// obtenermos la collection de la entidad Propiedades
+            /// </summary>
+            var coleccionPropietario = mongoDBContext.GetCollection<Propietario>("Propietario");
+ 
+            /// <summary>
+            /// Filtramos por el Id de la propiedad
+            /// </summary>
+            var filtroPropietario = Builders<Propietario>.Filter.Eq(x => x.Id, solicitud.IdPropietario);
+             
+            /// <summary>
+            /// Validar si encuentra el propietario
+            /// </summary>
+            var propietarioExistente = await coleccionPropietario.Find(filtroPropietario).FirstOrDefaultAsync();
+            if (propiedadExistente == null)
+            {
+                throw new Exception("El propietario no se encuentra registrado.");
+            }
+             
+
+            /// <summary>
+            /// Mapeamos los parametros de la Propiedad
+            /// </summary>           
+            propiedadExistente.Nombre = solicitud.Nombre;
+            propiedadExistente.Direccion = solicitud.Direccion;
+            propiedadExistente.Precio = solicitud.Precio;
+            propiedadExistente.CodigoInterno = solicitud.CodigoInterno;
+            propiedadExistente.ano = solicitud.ano;
+            propiedadExistente.IdPropietario = solicitud.IdPropietario;
+  
+            /// <summary>
+            /// Insertamos el objecto
+            /// </summary>
+            await coleccion.ReplaceOneAsync(filtro, propiedadExistente);
+
+            return propiedadExistente;           
         }
 
         public async Task<Propiedad> CambiarPrecioPropiedad(CambiarPrecioPropiedadSolicitud solicitud)
@@ -155,7 +212,7 @@ namespace DOTNET_RealState.Infraestructura.Repositorios
                     Direccion = solicitud.Direccion,
                     Precio = solicitud.Precio,
                     CodigoInterno = solicitud.CodigoInterno,
-                    anho = solicitud.anho,
+                    ano = solicitud.ano,
                     IdPropietario = solicitud.IdPropietario
                 };
 

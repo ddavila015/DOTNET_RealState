@@ -1,4 +1,5 @@
-﻿using DOTNET_RealState.Aplicacion.CasosUso.CambiarPrecioPropiedad;
+﻿using DOTNET_RealState.Aplicacion.CasosUso.ActualizarPropiedad;
+using DOTNET_RealState.Aplicacion.CasosUso.CambiarPrecioPropiedad;
 using DOTNET_RealState.Aplicacion.CasosUso.CargarImagenPropiedad;
 using DOTNET_RealState.Aplicacion.CasosUso.ConsultarPropiedad;
 using DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropiedad;
@@ -18,7 +19,7 @@ namespace DOTNET_RealState.Aplicacion.Puertos
 
         void ConsultartPropiedades(ConsultarPropiedadSolicitud solicitud);
 
-        void ActualizarPropiedad();
+        Task<Propiedad> ActualizarPropiedad(ActualizarPropiedadSolicitud solicitud);
 
         Task<Propiedad> CambiarPrecioPropiedad(CambiarPrecioPropiedadSolicitud solicitud);
 

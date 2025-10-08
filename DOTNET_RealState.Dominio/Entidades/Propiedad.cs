@@ -17,7 +17,7 @@ namespace DOTNET_RealState.Dominio.Entidades
         public string Direccion { get; set; }
         public decimal Precio { get; set; }
         public string CodigoInterno { get; set; }
-        public string anho { get; set; }
+        public string ano { get; set; }
         public string IdPropietario { get; set; }
     }
 }
