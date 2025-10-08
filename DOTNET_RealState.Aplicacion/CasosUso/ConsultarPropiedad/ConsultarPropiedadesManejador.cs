@@ -23,7 +23,7 @@ namespace DOTNET_RealState.Aplicacion.CasosUso.ConsultarPropiedad
             }
             catch (Exception ex)
             {
-                throw;
+                throw new Exception($"{ex.Message} - {ex.InnerException}");
             }
 
             return RespuestaMs<ConsultarPropiedadRespuesta>.CrearRespuestaExitosa(new ConsultarPropiedadRespuesta(), string.Empty);

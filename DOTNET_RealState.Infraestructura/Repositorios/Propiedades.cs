@@ -196,7 +196,7 @@ namespace DOTNET_RealState.Infraestructura.Repositorios
                 /// <summary>
                 /// obtenermos la collection de la entidad Propietario
                 /// </summary>
-                var coleccionPropietario = mongoDBContext.GetCollection<Propietario>("Propietario");
+                var coleccionPropietario = mongoDBContext.GetCollection<Propietario>("Propietarios");
 
                 /// <summary>
                 /// Filtramos por el Id de la Propietario

@@ -24,7 +24,7 @@ namespace DOTNET_RealState.Aplicacion.CasosUso.Propiedades
             }
             catch (Exception ex)
             {
-                throw;
+                throw new Exception($"{ex.Message} - {ex.InnerException}");
             }
 
             return RespuestaMs<RegistrarPropiedadRespuesta>.CrearRespuestaExitosa(new RegistrarPropiedadRespuesta(), string.Empty);                

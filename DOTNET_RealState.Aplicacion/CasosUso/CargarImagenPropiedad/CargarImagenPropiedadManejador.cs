@@ -23,7 +23,7 @@ namespace DOTNET_RealState.Aplicacion.CasosUso.CargarImagenPropiedad
             }
             catch (Exception ex)
             {
-                throw;
+                throw new Exception($"{ex.Message} - {ex.InnerException}");
             }
 
             return RespuestaMs<CargarImagenPropiedadRespuesta>.CrearRespuestaExitosa(new CargarImagenPropiedadRespuesta(), string.Empty);
