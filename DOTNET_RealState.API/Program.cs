@@ -1,5 +1,6 @@
 using DOTNET_RealState.Aplicacion.InyeccionDependencias;
 using DOTNET_RealState.Aplicacion.Puertos;
+using DOTNET_RealState.Infraestructura.Persistencia;
 using DOTNET_RealState.Infraestructura.Repositorios;
 using DotNetEnv;
 
@@ -16,6 +17,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AgregarCapaAplicacion();
 builder.Services.AddScoped<IPropiedades, Propiedades>();
+builder.Services.AddScoped<IMongoDBContext, MongoDBContext>();
+
 
 var app = builder.Build();
 

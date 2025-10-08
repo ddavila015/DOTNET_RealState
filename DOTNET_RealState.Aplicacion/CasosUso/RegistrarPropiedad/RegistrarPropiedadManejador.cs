@@ -1,6 +1,7 @@
 ﻿using DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropiedad;
 using DOTNET_RealState.Aplicacion.Envoltorios;
 using DOTNET_RealState.Aplicacion.Puertos;
+using DOTNET_RealState.Dominio.Entidades;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -18,8 +19,8 @@ namespace DOTNET_RealState.Aplicacion.CasosUso.Propiedades
         {
             try
             {
-               _propiedades.RegistrarPropiedad(solicitud);
-                 
+                
+              var respuesta = _propiedades.RegistrarPropiedad(solicitud);                 
             }
             catch (Exception ex)
             {

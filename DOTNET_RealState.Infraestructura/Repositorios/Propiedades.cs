@@ -1,6 +1,7 @@
 ﻿using DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropiedad;
 using DOTNET_RealState.Aplicacion.Puertos;
 using DOTNET_RealState.Dominio.Entidades;
+using DOTNET_RealState.Infraestructura.Persistencia;
 using MongoDB.Driver;
 using NHibernate.Id;
 using System;
@@ -12,8 +13,14 @@ using System.Threading.Tasks;
 
 namespace DOTNET_RealState.Infraestructura.Repositorios
 {
-    public class Propiedades : IPropiedades
+
+    public class Propiedades(IMongoDBContext mongoDBContext) : IPropiedades
     {
+        /// <summary>
+        /// obtenemos una conexion de la base de datos
+        /// </summary>
+        private readonly IMongoDBContext _mongoDBContext = mongoDBContext;
+
         public void ActualizarPropiedad()
         {
             throw new NotImplementedException();
@@ -34,17 +41,17 @@ namespace DOTNET_RealState.Infraestructura.Repositorios
             throw new NotImplementedException();
         }
 
-        public async void RegistrarPropiedad(RegistrarPropiedadSolicitud solicitud)
+        public async Task<Propiedad> RegistrarPropiedad(RegistrarPropiedadSolicitud solicitud)
         {
-
-            // Conexión a MongoDB (ajusta la cadena según tu entorno)
-            var cliente = new MongoClient("mongodb://localhost:27017");
-            var database = cliente.GetDatabase("RealEstateBD");
-            var coleccion = database.GetCollection<Propiedad>("Propiedades");
-            var sequenceGenerator = new SequenceGenerator();
+            /// <summary>
+            /// obtenermos la collection de la entidad Propiedades
+            /// </summary>
+            var coleccion = mongoDBContext.GetCollection<Propiedad>("Propiedades");
 
 
-            // Objeto a insertar
+            /// <summary>
+            /// Mapeamos la entidad 
+            /// </summary>
             var propiedad = new Propiedad
             {                                
                 Nombre = solicitud.Nombre,
@@ -55,10 +62,12 @@ namespace DOTNET_RealState.Infraestructura.Repositorios
                 IdPropietario = solicitud.IdPropietario
             };
 
-            // Insertar en la colección
+            /// <summary>
+            /// Insertamos el objecto
+            /// </summary>
             await coleccion.InsertOneAsync(propiedad);
 
-            Console.WriteLine("Propiedad insertada con Id generado: " + propiedad.Id);
+            return propiedad;
         }
     }
 }

@@ -12,7 +12,6 @@
     <Folder Include="Constantes\" />
     <Folder Include="InyeccionDependencias\" />
     <Folder Include="Seguridad\" />
-    <Folder Include="Persistencia\" />
   </ItemGroup>
 
   <ItemGroup>
