@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Configuraciones\" />
-    <Folder Include="Dtos\" />
     <Folder Include="Excepciones\" />
     <Folder Include="Mapeadores\" />
   </ItemGroup>

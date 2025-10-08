@@ -3,9 +3,11 @@ using DOTNET_RealState.Aplicacion.CasosUso.CambiarPrecioPropiedad;
 using DOTNET_RealState.Aplicacion.CasosUso.CargarImagenPropiedad;
 using DOTNET_RealState.Aplicacion.CasosUso.ConsultarPropiedad;
 using DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropiedad;
+using DOTNET_RealState.Aplicacion.Dtos;
 using DOTNET_RealState.Aplicacion.Puertos;
 using DOTNET_RealState.Dominio.Entidades;
 using DOTNET_RealState.Infraestructura.Persistencia;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using NHibernate.Id;
 using System;
@@ -160,35 +162,29 @@ namespace DOTNET_RealState.Infraestructura.Repositorios
         {
             /// <summary>
             /// obtenermos la collection de la entidad Propiedades
-            /// </summary>
-            var coleccion = mongoDBContext.GetCollection<Propiedad>("Propiedades");
+            /// </summary>          
+            var resultado = _mongoDBContext.GetCollection<Propiedad>("Propiedades")
+                         .Aggregate()
+                         .Lookup(
+                             foreignCollectionName: "Propietarios",
+                             localField: "IdPropietario",
+                             foreignField: "_id",
+                             @as: "Propietario"
+                         )
+                         .Unwind("Propietario", new AggregateUnwindOptions<PropietarioDTO>
+                         {
+                             PreserveNullAndEmptyArrays = true
+                         })
+                         .Lookup(
+                             foreignCollectionName: "ImagenesPropiedad",
+                             localField: "Id",
+                             foreignField: "IdPropiedad",
+                             @as: "Imagenes"
+                         )
+                         .As<PropiedadDTO>() // mapea al DTO
+                         .ToList();
 
-            var pipeline = coleccion.Aggregate()
-                            .Lookup(
-                                foreignCollectionName: "Propietario",
-                                localField: "IdPropietario",
-                                foreignField: "_id",
-                                @as: "Propietario"
-                            )
-                            .Unwind("Propietario", new AggregateUnwindOptions<Propietario>
-                            {
-                                PreserveNullAndEmptyArrays = true
-                            })
-                            .Lookup(
-                                foreignCollectionName: "ImagenPropiedad",
-                                localField: "_id",
-                                foreignField: "IdPropiedad",
-                                @as: "Archivo"
-                            )
-                            .Lookup(
-                                foreignCollectionName: "DetallePropiedad",
-                                localField: "_id",
-                                foreignField: "FechaVenta",
-                                @as: "Nombre"
-                            );
 
-            
-            var resultBson = pipeline.ToList();
 
             throw new NotImplementedException();
         }

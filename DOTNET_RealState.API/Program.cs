@@ -17,6 +17,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AgregarCapaAplicacion();
 builder.Services.AddScoped<IPropiedades, Propiedades>();
+builder.Services.AddScoped<IPropietarios, Propietarios>();
 builder.Services.AddScoped<IMongoDBContext, MongoDBContext>();
 
 
