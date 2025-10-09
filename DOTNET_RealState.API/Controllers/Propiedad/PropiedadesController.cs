@@ -7,10 +7,12 @@ using DOTNET_RealState.Aplicacion.CasosUso.Propiedades;
 using DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropiedad;
 using DOTNET_RealState.Aplicacion.Envoltorios;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DOTNET_RealState.API.Controllers.Propiedad
 {
+    [Authorize]
     public class PropiedadesController : BaseApiController
     {
         /// <summary>

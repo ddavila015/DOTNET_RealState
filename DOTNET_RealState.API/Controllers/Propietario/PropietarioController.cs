@@ -1,10 +1,12 @@
 ﻿using DOTNET_RealState.API.Extenciones;
 using DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropiedad;
 using DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropietario;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DOTNET_RealState.API.Controllers.Propietario
 {
+    [Authorize]
     public class PropietarioController : BaseApiController
     {
         /// <summary>
