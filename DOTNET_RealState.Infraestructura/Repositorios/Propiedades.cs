@@ -158,35 +158,53 @@ namespace DOTNET_RealState.Infraestructura.Repositorios
             return imagenPropiedad;
         }
 
-        public void ConsultartPropiedades(ConsultarPropiedadSolicitud solicitud)
+        public List<PropiedadDTO> ConsultartPropiedades(ConsultarPropiedadSolicitud solicitud)
         {
-            /// <summary>
-            /// obtenermos la collection de la entidad Propiedades
-            /// </summary>          
-            var resultado = _mongoDBContext.GetCollection<Propiedad>("Propiedades")
-                         .Aggregate()
-                         .Lookup(
-                             foreignCollectionName: "Propietarios",
-                             localField: "IdPropietario",
-                             foreignField: "_id",
-                             @as: "Propietario"
-                         )
-                         .Unwind("Propietario", new AggregateUnwindOptions<PropietarioDTO>
-                         {
-                             PreserveNullAndEmptyArrays = true
-                         })
-                         .Lookup(
-                             foreignCollectionName: "ImagenPropiedad",
-                             localField: "Id",
-                             foreignField: "IdPropiedad",
-                             @as: "Imagenes"
-                         )
-                         .As<PropiedadDTO>() // mapea al DTO
-                         .ToList();
+            try
+            {
+                /// <summary>
+                /// obtenermos la collection de la entidad Propiedades
+                /// </summary>          
+                var resultado = _mongoDBContext.GetCollection<Propiedad>("Propiedades")
+                             .Aggregate()
+                             .Lookup(
+                                 foreignCollectionName: "Propietarios",
+                                 localField: "IdPropietario",
+                                 foreignField: "_id",
+                                 @as: "Propietario"
+                             )
+                             .Unwind("Propietario", new AggregateUnwindOptions<PropietarioDTO>
+                             {
+                                 PreserveNullAndEmptyArrays = true
+                             })
+                             .Lookup(
+                                 foreignCollectionName: "ImagenPropiedad",
+                                 localField: "Id",
+                                 foreignField: "IdPropiedad",
+                                 @as: "Imagenes"
+                             ).As<PropiedadDTO>();
 
 
 
-            throw new NotImplementedException();
+
+                             if (solicitud.PrecioMaximo != null && solicitud.PrecioMaximo != 0)
+                             {
+                                 resultado = resultado.Match(x => x.Precio <= solicitud.PrecioMaximo);
+                             }
+                      
+
+                            // Filtro por propietario (si viene en la solicitud)
+                            if (solicitud.ano != null && solicitud.ano != "")
+                            {
+                                resultado = resultado.Match(Builders<PropiedadDTO>.Filter.Eq(x => x.ano, solicitud.ano));
+                            } 
+
+                return resultado.As<PropiedadDTO>().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{ex.Message} - {ex.InnerException}");
+            }
         }
 
         public async Task<Propiedad> RegistrarPropiedad(RegistrarPropiedadSolicitud solicitud)
@@ -240,7 +258,6 @@ namespace DOTNET_RealState.Infraestructura.Repositorios
             }
             catch (Exception ex)
             {
-
                 throw new Exception($"{ex.Message} - {ex.InnerException}");
             }
         }

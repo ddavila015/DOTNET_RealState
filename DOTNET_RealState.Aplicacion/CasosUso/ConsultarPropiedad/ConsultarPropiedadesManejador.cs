@@ -1,4 +1,5 @@
 ﻿using DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropiedad;
+using DOTNET_RealState.Aplicacion.Dtos;
 using DOTNET_RealState.Aplicacion.Envoltorios;
 using DOTNET_RealState.Aplicacion.Puertos;
 using MediatR;
@@ -16,17 +17,18 @@ namespace DOTNET_RealState.Aplicacion.CasosUso.ConsultarPropiedad
 
         public async Task<RespuestaMs<ConsultarPropiedadRespuesta>> Handle(ConsultarPropiedadSolicitud solicitud, CancellationToken cancellationToken)
         {
+            ConsultarPropiedadRespuesta respuesta = new ConsultarPropiedadRespuesta();
+
             try
             {
-
-                _propiedades.ConsultartPropiedades(solicitud);
+               var resultado = _propiedades.ConsultartPropiedades(solicitud);
+               respuesta.Propiedades = resultado;
+               return RespuestaMs<ConsultarPropiedadRespuesta>.CrearRespuestaExitosa(respuesta, string.Empty);
             }
             catch (Exception ex)
-            {
-                throw new Exception($"{ex.Message} - {ex.InnerException}");
-            }
-
-            return RespuestaMs<ConsultarPropiedadRespuesta>.CrearRespuestaExitosa(new ConsultarPropiedadRespuesta(), string.Empty);
-        }
+            {                
+                return RespuestaMs<ConsultarPropiedadRespuesta>.CrearRespuestaErrorInterno(respuesta, $"{ex.Message} - {ex.InnerException}");
+            }           
+        } 
     }
 }
