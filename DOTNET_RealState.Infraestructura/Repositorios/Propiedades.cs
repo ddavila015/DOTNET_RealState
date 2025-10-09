@@ -29,92 +29,59 @@ namespace DOTNET_RealState.Infraestructura.Repositorios
 
         public async Task<Propiedad> ActualizarPropiedad(ActualizarPropiedadSolicitud solicitud)
         {
-            /// <summary>
-            /// obtenermos la collection de la entidad Propiedades
-            /// </summary>
-            var coleccion = mongoDBContext.GetCollection<Propiedad>("Propiedades");
-
-            /// <summary>
-            /// Filtramos por el Id de la propiedad
-            /// </summary>
-            var filtro = Builders<Propiedad>.Filter.Eq(x => x.Id, solicitud.IdPropiedad);
-
-            /// <summary>
-            /// Validar si la Propiedad existe
-            /// </summary>
-             var propiedadExistente = await coleccion.Find(filtro).FirstOrDefaultAsync();
-            if (propiedadExistente == null)
-            {
-                throw new Exception("La Propiedad no se encuentra registrada.");
-            }
-
-
-
-            /// <summary>
-            /// obtenermos la collection de la entidad Propietario
-            /// </summary>
-            var coleccionPropietario = mongoDBContext.GetCollection<Propietario>("Propietarios");
-
-            /// <summary>
-            /// Filtramos por el Id de la Propietario
-            /// </summary>
-            var filtroPropietario = Builders<Propietario>.Filter.Eq(x => x.Id, solicitud.IdPropietario);
-             
-            /// <summary>
-            /// Validar si encuentra el propietario
-            /// </summary>
-            var propietarioExistente = await coleccionPropietario.Find(filtroPropietario).FirstOrDefaultAsync();
-            if (propietarioExistente == null)
-            {
-                throw new Exception("El propietario no se encuentra registrado.");
-            }
-             
-
-            /// <summary>
-            /// Mapeamos los parametros de la Propiedad
-            /// </summary>           
-            propiedadExistente.Nombre = solicitud.Nombre;
-            propiedadExistente.Direccion = solicitud.Direccion;
-            propiedadExistente.Precio = solicitud.Precio;
-            propiedadExistente.CodigoInterno = solicitud.CodigoInterno;
-            propiedadExistente.ano = solicitud.ano;
-            propiedadExistente.IdPropietario = solicitud.IdPropietario;
-  
-            /// <summary>
-            /// Insertamos el objecto
-            /// </summary>
-            await coleccion.ReplaceOneAsync(filtro, propiedadExistente);
-
-            return propiedadExistente;           
-        }
-
-        public async Task<Propiedad> CambiarPrecioPropiedad(CambiarPrecioPropiedadSolicitud solicitud)
-        {
-            /// <summary>
-            /// obtenermos la collection de la entidad Propiedades
-            /// </summary>
-            var coleccion = mongoDBContext.GetCollection<Propiedad>("Propiedades");
-
-
-            /// <summary>
-            /// Filtramos por el Id de la propiedad
-            /// </summary>
-            var filtro = Builders<Propiedad>.Filter.Eq(x => x.Id, solicitud.IdPropiedad);
-
-
-            /// <summary>
-            /// Validar si encuentra el registro
-            /// </summary>
-            var propiedadExistente = await coleccion.Find(filtro).FirstOrDefaultAsync();
-
-
-            if (propiedadExistente != null)
-            {
+            try
+            { 
                 /// <summary>
-                /// Mapeamos solo el precio
-                /// </summary>           
-                propiedadExistente.Precio = solicitud.Precio;
+                /// obtenermos la collection de la entidad Propiedades
+                /// </summary>
+                var coleccion = mongoDBContext.GetCollection<Propiedad>("Propiedades");
 
+                /// <summary>
+                /// Filtramos por el Id de la propiedad
+                /// </summary>
+                var filtro = Builders<Propiedad>.Filter.Eq(x => x.Id, solicitud.IdPropiedad);
+
+                /// <summary>
+                /// Validar si la Propiedad existe
+                /// </summary>
+                 var propiedadExistente = await coleccion.Find(filtro).FirstOrDefaultAsync();
+                if (propiedadExistente == null)
+                {
+                    throw new Exception("La Propiedad no se encuentra registrada.");
+                }
+
+
+
+                /// <summary>
+                /// obtenermos la collection de la entidad Propietario
+                /// </summary>
+                var coleccionPropietario = mongoDBContext.GetCollection<Propietario>("Propietarios");
+
+                /// <summary>
+                /// Filtramos por el Id de la Propietario
+                /// </summary>
+                var filtroPropietario = Builders<Propietario>.Filter.Eq(x => x.Id, solicitud.IdPropietario);
+             
+                /// <summary>
+                /// Validar si encuentra el propietario
+                /// </summary>
+                var propietarioExistente = await coleccionPropietario.Find(filtroPropietario).FirstOrDefaultAsync();
+                if (propietarioExistente == null)
+                {
+                    throw new Exception("El propietario no se encuentra registrado.");
+                }
+             
+
+                /// <summary>
+                /// Mapeamos los parametros de la Propiedad
+                /// </summary>           
+                propiedadExistente.Nombre = solicitud.Nombre;
+                propiedadExistente.Direccion = solicitud.Direccion;
+                propiedadExistente.Precio = solicitud.Precio;
+                propiedadExistente.CodigoInterno = solicitud.CodigoInterno;
+                propiedadExistente.ano = solicitud.ano;
+                propiedadExistente.IdPropietario = solicitud.IdPropietario;
+  
                 /// <summary>
                 /// Insertamos el objecto
                 /// </summary>
@@ -122,40 +89,96 @@ namespace DOTNET_RealState.Infraestructura.Repositorios
 
                 return propiedadExistente;
             }
-            else
+            catch (Exception ex)
             {
-                throw new Exception("La Propiedad no se encuentra registrada.");
-            }         
+                throw new Exception($"{ex.Message} - {ex.InnerException}");
+            }
+        }
+
+        public async Task<Propiedad> CambiarPrecioPropiedad(CambiarPrecioPropiedadSolicitud solicitud)
+        {
+            try
+            {
+                /// <summary>
+                /// obtenermos la collection de la entidad Propiedades
+                /// </summary>
+                var coleccion = mongoDBContext.GetCollection<Propiedad>("Propiedades");
+
+
+                /// <summary>
+                /// Filtramos por el Id de la propiedad
+                /// </summary>
+                var filtro = Builders<Propiedad>.Filter.Eq(x => x.Id, solicitud.IdPropiedad);
+
+
+                /// <summary>
+                /// Validar si encuentra el registro
+                /// </summary>
+                var propiedadExistente = await coleccion.Find(filtro).FirstOrDefaultAsync();
+
+
+                if (propiedadExistente != null)
+                {
+                    /// <summary>
+                    /// Mapeamos solo el precio
+                    /// </summary>           
+                    propiedadExistente.Precio = solicitud.Precio;
+
+                    /// <summary>
+                    /// Insertamos el objecto
+                    /// </summary>
+                    await coleccion.ReplaceOneAsync(filtro, propiedadExistente);
+
+                    return propiedadExistente;
+                }
+                else
+                {
+                    throw new Exception("La Propiedad no se encuentra registrada.");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{ex.Message} - {ex.InnerException}");
+            }
         }
 
         public async Task<ImagenPropiedad> CargarImagenPropiedad(CargarImagenPropiedadSolicitud solicitud)
         {
-            /// <summary>
-            /// obtenermos la collection de la entidad Propiedades
-            /// </summary>
-            var coleccion = mongoDBContext.GetCollection<ImagenPropiedad>("ImagenPropiedad");
-
-            /// <summary>
-            /// Mapeamos la entidad de ImagenPropiedad
-            /// </summary>
-            var imagenPropiedad = new ImagenPropiedad
+            try
             {
-                IdPropiedad = solicitud.IdPropiedad,
-                ImgBase64 = solicitud.ImgBase64,
-                ArchivoNombre = solicitud.ArchivoNombre,
-                Activo = true         
-            };
+                /// <summary>
+                /// obtenermos la collection de la entidad Propiedades
+                /// </summary>
+                var coleccion = mongoDBContext.GetCollection<ImagenPropiedad>("ImagenPropiedad");
 
-            /// <summary>
-            /// Insertamos el objecto
-            /// </summary>
-            await coleccion.InsertOneAsync(imagenPropiedad);
+                /// <summary>
+                /// Mapeamos la entidad de ImagenPropiedad
+                /// </summary>
+                var imagenPropiedad = new ImagenPropiedad
+                {
+                    IdPropiedad = solicitud.IdPropiedad,
+                    ImgBase64 = solicitud.ImgBase64,
+                    ArchivoNombre = solicitud.ArchivoNombre,
+                    Activo = true         
+                };
+
+                /// <summary>
+                /// Insertamos el objecto
+                /// </summary>
+                await coleccion.InsertOneAsync(imagenPropiedad);
 
 
-            /// <summary>
-            /// Retornamos la objecto
-            /// </summary>
-            return imagenPropiedad;
+                /// <summary>
+                /// Retornamos la objecto
+                /// </summary>
+                return imagenPropiedad;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{ex.Message} - {ex.InnerException}");
+            }
         }
 
         public List<PropiedadDTO> ConsultartPropiedades(ConsultarPropiedadSolicitud solicitud)
