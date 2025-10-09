@@ -1,6 +1,8 @@
-﻿using DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropiedad;
+﻿using DOTNET_RealState.Aplicacion.CasosUso.ActualizarPropiedad;
+using DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropiedad;
 using DOTNET_RealState.Aplicacion.Envoltorios;
 using DOTNET_RealState.Aplicacion.Puertos;
+using DOTNET_RealState.Dominio.Entidades;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -18,15 +20,13 @@ namespace DOTNET_RealState.Aplicacion.CasosUso.CargarImagenPropiedad
         {
             try
             {
-
-                var respuesta = _propiedades.CargarImagenPropiedad(solicitud);
+                var resultado = _propiedades.CargarImagenPropiedad(solicitud);
+                return RespuestaMs<CargarImagenPropiedadRespuesta>.CrearRespuestaExitosa(new CargarImagenPropiedadRespuesta { ImagenPropiedad = resultado.Result }, string.Empty);
             }
             catch (Exception ex)
-            {
-                throw new Exception($"{ex.Message} - {ex.InnerException}");
+            {                 
+                return RespuestaMs<CargarImagenPropiedadRespuesta>.CrearRespuestaErrorInterno(new CargarImagenPropiedadRespuesta(), $"{ex.Message} - {ex.InnerException}");
             }
-
-            return RespuestaMs<CargarImagenPropiedadRespuesta>.CrearRespuestaExitosa(new CargarImagenPropiedadRespuesta(), string.Empty);
         }
     }
 }

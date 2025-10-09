@@ -1,4 +1,5 @@
-﻿using DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropiedad;
+﻿using DOTNET_RealState.Aplicacion.CasosUso.ActualizarPropiedad;
+using DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropiedad;
 using DOTNET_RealState.Aplicacion.Envoltorios;
 using DOTNET_RealState.Aplicacion.Puertos;
 using DOTNET_RealState.Dominio.Entidades;
@@ -19,15 +20,14 @@ namespace DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropietario
         {
             try
             {
-
                 var respuesta = _propietarios.RegistrarPropietario(solicitud);
+                return RespuestaMs<RegistrarPropietarioRespuesta>.CrearRespuestaExitosa(new RegistrarPropietarioRespuesta { Propietario = respuesta.Result }, string.Empty);
+
             }
             catch (Exception ex)
             {
-                throw new Exception($"{ex.Message} - {ex.InnerException}");
+                return RespuestaMs<RegistrarPropietarioRespuesta>.CrearRespuestaErrorInterno(new RegistrarPropietarioRespuesta(), $"{ex.Message} - {ex.InnerException}");
             }
-
-            return RespuestaMs<RegistrarPropietarioRespuesta>.CrearRespuestaExitosa(new RegistrarPropietarioRespuesta(), string.Empty);
         }
     }
 }

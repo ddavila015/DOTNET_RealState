@@ -17,17 +17,15 @@ namespace DOTNET_RealState.Aplicacion.CasosUso.CambiarPrecioPropiedad
 
         public async Task<RespuestaMs<CambiarPrecioPropiedadRespuesta>> Handle(CambiarPrecioPropiedadSolicitud solicitud, CancellationToken cancellationToken)
         {
-
             try
             {
-                var respuesta = _propiedades.CambiarPrecioPropiedad(solicitud);
+                var resultado = _propiedades.CambiarPrecioPropiedad(solicitud);
+                return RespuestaMs<CambiarPrecioPropiedadRespuesta>.CrearRespuestaExitosa(new CambiarPrecioPropiedadRespuesta{ Propiedad = resultado.Result }, string.Empty);
             }
             catch (Exception ex)
             {
-                throw new Exception($"{ex.Message} - {ex.InnerException}");
+                return RespuestaMs<CambiarPrecioPropiedadRespuesta>.CrearRespuestaErrorInterno(new CambiarPrecioPropiedadRespuesta(), $"{ex.Message} - {ex.InnerException}");
             }
-
-            return RespuestaMs<CambiarPrecioPropiedadRespuesta>.CrearRespuestaExitosa(new CambiarPrecioPropiedadRespuesta(), string.Empty);
         }
     }
 }

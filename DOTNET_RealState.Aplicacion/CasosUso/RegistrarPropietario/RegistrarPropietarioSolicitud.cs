@@ -14,7 +14,6 @@ namespace DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropietario
         public string Nombre { get; set; }
         public string Direccion { get; set; }
         public string FotoNombre { get; set; }
-
         public string FotoBase64 { get; set; }
         public string FechaNacimiento { get; set; }
     }

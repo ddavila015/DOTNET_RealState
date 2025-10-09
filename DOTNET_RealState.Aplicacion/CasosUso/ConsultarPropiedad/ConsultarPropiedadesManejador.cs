@@ -21,9 +21,8 @@ namespace DOTNET_RealState.Aplicacion.CasosUso.ConsultarPropiedad
 
             try
             {
-               var resultado = _propiedades.ConsultartPropiedades(solicitud);
-               respuesta.Propiedades = resultado;
-               return RespuestaMs<ConsultarPropiedadRespuesta>.CrearRespuestaExitosa(respuesta, string.Empty);
+               var resultado = _propiedades.ConsultartPropiedades(solicitud);            
+               return RespuestaMs<ConsultarPropiedadRespuesta>.CrearRespuestaExitosa(new ConsultarPropiedadRespuesta { Propiedades = resultado }, string.Empty);
             }
             catch (Exception ex)
             {                

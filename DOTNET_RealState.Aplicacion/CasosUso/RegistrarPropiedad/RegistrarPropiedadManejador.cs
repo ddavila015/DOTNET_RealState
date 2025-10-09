@@ -1,4 +1,5 @@
-﻿using DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropiedad;
+﻿using DOTNET_RealState.Aplicacion.CasosUso.ActualizarPropiedad;
+using DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropiedad;
 using DOTNET_RealState.Aplicacion.Envoltorios;
 using DOTNET_RealState.Aplicacion.Puertos;
 using DOTNET_RealState.Dominio.Entidades;
@@ -18,16 +19,14 @@ namespace DOTNET_RealState.Aplicacion.CasosUso.Propiedades
         public async Task<RespuestaMs<RegistrarPropiedadRespuesta>> Handle(RegistrarPropiedadSolicitud solicitud, CancellationToken cancellationToken)
         {
             try
-            {
-                
-              var respuesta = _propiedades.RegistrarPropiedad(solicitud);                 
+            {                
+                var respuesta = _propiedades.RegistrarPropiedad(solicitud);
+                return RespuestaMs<RegistrarPropiedadRespuesta>.CrearRespuestaExitosa(new RegistrarPropiedadRespuesta { Propiedad = respuesta.Result }, string.Empty);
             }
             catch (Exception ex)
             {
-                throw new Exception($"{ex.Message} - {ex.InnerException}");
+                return RespuestaMs<RegistrarPropiedadRespuesta>.CrearRespuestaErrorInterno(new RegistrarPropiedadRespuesta(), $"{ex.Message} - {ex.InnerException}");
             }
-
-            return RespuestaMs<RegistrarPropiedadRespuesta>.CrearRespuestaExitosa(new RegistrarPropiedadRespuesta(), string.Empty);                
         }
     }
 }
