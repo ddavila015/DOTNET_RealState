@@ -1,4 +1,5 @@
-﻿using DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropietario;
+﻿using DOTNET_RealState.Aplicacion.CasosUso.RegistrarPropiedad;
+using DOTNET_RealState.Aplicacion.CasosUso.RegistrarUsuario;
 using DOTNET_RealState.Aplicacion.Puertos;
 using DOTNET_RealState.Dominio.Entidades;
 using MongoDB.Driver;
@@ -10,40 +11,40 @@ using System.Threading.Tasks;
 
 namespace DOTNET_RealState.Infraestructura.Repositorios
 {
-    public class Propietarios(IMongoDBContext mongoDBContext) : IPropietarios
+    public class Usuarios(IMongoDBContext mongoDBContext) : IUsuarios
     {
         /// <summary>
         /// obtenemos una conexion de la base de datos
         /// </summary>
         private readonly IMongoDBContext _mongoDBContext = mongoDBContext;
 
-        public async Task<Propietario> RegistrarPropietario(RegistrarPropietarioSolicitud solicitud)
+
+        public async Task<Usuario> RegistrarUsuarios(RegistrarUsuarioSolicitud solicitud)
         {
             try
-            { 
+            {
                 /// <summary>
-                /// obtenermos la collection de la entidad Propietario
+                /// obtenermos la collection de la entidad Usuario
                 /// </summary>
-                var coleccion = _mongoDBContext.GetCollection<Propietario>("Propietarios");
+                var coleccion = _mongoDBContext.GetCollection<Usuario>("usuarios");
 
+              
                 /// <summary>
                 /// Mapeamos la entidad 
                 /// </summary>
-                var propietario = new Propietario
+                var usuario = new Usuario
                 {
-                    Nombre = solicitud.Nombre,
-                    Direccion = solicitud.Direccion,
-                    Foto = solicitud.FotoNombre,
-                    FotoBase64 = solicitud.FotoBase64,
-                    FechaNacimiento = solicitud.FechaNacimiento                
+                    Username = solicitud.Username,
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword(solicitud.Password),
+                    Rol = solicitud.Rol                    
                 };
 
                 /// <summary>
                 /// Insertamos el objecto
                 /// </summary>
-                await coleccion.InsertOneAsync(propietario);
+                await coleccion.InsertOneAsync(usuario);
 
-                return propietario;
+                return usuario;
             }
             catch (Exception ex)
             {

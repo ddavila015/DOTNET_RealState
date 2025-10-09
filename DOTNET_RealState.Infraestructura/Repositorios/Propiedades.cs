@@ -34,7 +34,7 @@ namespace DOTNET_RealState.Infraestructura.Repositorios
                 /// <summary>
                 /// obtenermos la collection de la entidad Propiedades
                 /// </summary>
-                var coleccion = mongoDBContext.GetCollection<Propiedad>("Propiedades");
+                var coleccion = _mongoDBContext.GetCollection<Propiedad>("Propiedades");
 
                 /// <summary>
                 /// Filtramos por el Id de la propiedad
@@ -55,7 +55,7 @@ namespace DOTNET_RealState.Infraestructura.Repositorios
                 /// <summary>
                 /// obtenermos la collection de la entidad Propietario
                 /// </summary>
-                var coleccionPropietario = mongoDBContext.GetCollection<Propietario>("Propietarios");
+                var coleccionPropietario = _mongoDBContext.GetCollection<Propietario>("Propietarios");
 
                 /// <summary>
                 /// Filtramos por el Id de la Propietario
@@ -102,7 +102,7 @@ namespace DOTNET_RealState.Infraestructura.Repositorios
                 /// <summary>
                 /// obtenermos la collection de la entidad Propiedades
                 /// </summary>
-                var coleccion = mongoDBContext.GetCollection<Propiedad>("Propiedades");
+                var coleccion = _mongoDBContext.GetCollection<Propiedad>("Propiedades");
 
 
                 /// <summary>
@@ -150,7 +150,7 @@ namespace DOTNET_RealState.Infraestructura.Repositorios
                 /// <summary>
                 /// obtenermos la collection de la entidad Propiedades
                 /// </summary>
-                var coleccion = mongoDBContext.GetCollection<ImagenPropiedad>("ImagenPropiedad");
+                var coleccion = _mongoDBContext.GetCollection<ImagenPropiedad>("ImagenPropiedad");
 
                 /// <summary>
                 /// Mapeamos la entidad de ImagenPropiedad
@@ -237,7 +237,7 @@ namespace DOTNET_RealState.Infraestructura.Repositorios
                 /// <summary>
                 /// obtenermos la collection de la entidad Propietario
                 /// </summary>
-                var coleccionPropietario = mongoDBContext.GetCollection<Propietario>("Propietarios");
+                var coleccionPropietario = _mongoDBContext.GetCollection<Propietario>("Propietarios");
 
                 /// <summary>
                 /// Filtramos por el Id de la Propietario
@@ -257,7 +257,7 @@ namespace DOTNET_RealState.Infraestructura.Repositorios
                 /// <summary>
                 /// obtenermos la collection de la entidad Propiedades
                 /// </summary>
-                var coleccion = mongoDBContext.GetCollection<Propiedad>("Propiedades");
+                var coleccion = _mongoDBContext.GetCollection<Propiedad>("Propiedades");
 
                 /// <summary>
                 /// Mapeamos la entidad 
