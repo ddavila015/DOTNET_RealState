@@ -18,6 +18,8 @@ namespace DOTNET_RealState.Dominio.Entidades
         public decimal Precio { get; set; }
         public string CodigoInterno { get; set; }
         public string ano { get; set; }
+
+        [BsonRepresentation(BsonType.ObjectId)]
         public string IdPropietario { get; set; }
     }
 }

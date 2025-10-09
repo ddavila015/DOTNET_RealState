@@ -176,7 +176,7 @@ namespace DOTNET_RealState.Infraestructura.Repositorios
                              PreserveNullAndEmptyArrays = true
                          })
                          .Lookup(
-                             foreignCollectionName: "ImagenesPropiedad",
+                             foreignCollectionName: "ImagenPropiedad",
                              localField: "Id",
                              foreignField: "IdPropiedad",
                              @as: "Imagenes"

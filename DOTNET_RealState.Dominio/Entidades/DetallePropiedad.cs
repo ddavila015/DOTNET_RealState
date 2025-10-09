@@ -17,6 +17,8 @@ namespace DOTNET_RealState.Dominio.Entidades
         public string Nombre { get; set; }
         public decimal Valor { get; set; }
         public string Impuesto { get; set; }
+           
+        [BsonRepresentation(BsonType.ObjectId)]
         public string IdPropiedad { get; set; }
     }
 }
