@@ -10,14 +10,22 @@
     <ProjectReference Include="..\DOTNET_RealState.API\DOTNET_RealState.API.csproj" />
     <ProjectReference Include="..\DOTNET_RealState.Aplicacion\DOTNET_RealState.Aplicacion.csproj" />
     <ProjectReference Include="..\DOTNET_RealState.Dominio\DOTNET_RealState.Dominio.csproj" />
-    <ProjectReference Include="..\DOTNET_RealState.Infraestructura\DOTNET_RealState.Infraestructura.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="DOTNET_RealState.API_Pruebas\" />
-    <Folder Include="DOTNET_RealState.Aplicacion_Pruebas\" />
     <Folder Include="DOTNET_RealState.Dominio_Pruebas\" />
-    <Folder Include="DOTNET_RealState.Infraestructura_Pruebas\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.4">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.0" />
+    <PackageReference Include="Moq" Version="4.20.72" />
+    <PackageReference Include="NUnit" Version="4.4.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="5.2.0" />
   </ItemGroup>
 
 </Project>
