@@ -16,7 +16,7 @@ namespace DOTNET_RealState.API.Controllers.Propietario
         /// <response code="500">Error interno en el API</response>
         /// <response code="404">Error controlado cuando el Request es invalido</response>
         /// <response code="400">Error controlado por el flitro del request</response>
-        [Route("RegistrarPropiedad")]
+        [Route("RegistrarPropietario")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
